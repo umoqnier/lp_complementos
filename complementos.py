@@ -4,8 +4,9 @@
 #-Banda Martínez César Eduardo
 #-Barriga Martínez Diego Alberto
 #-Quezada Tapia Abraham
-#Programa: Operaciones de polinomios de grado N
-#Hecho en Python 3.6
+#Programa: Conversor de Decimal a C1, C2 y viceversa
+#Hecho en Python 3.5
+
 import os
 
 centinela = 1
@@ -60,13 +61,13 @@ def convierteATexto(lista):
 def main():
 	"""Funcion principal, inicia flujo del programa"""
 	while centinela != 0:
-		print("\t\t*********CONVERSOR DECIMAL-->C1,C2 Y C1, C2->DECIMAL*********")
+		print("\t\t*********CONVERSOR DECIMAL-->C1,C2 Y C1,C2->DECIMAL*********")
 		print("""
-			1-Decimal --> C1
-			2-Decimal --> C2
-			3-C1 --> Decimal
-			4-C2 --> Decimal
-			0-Salir
+				1-Decimal --> C1
+				2-Decimal --> C2
+				3-C1 --> Decimal
+				4-C2 --> Decimal
+				0-Salir
 			""")
 		opcion = int(input("Selecciona una opcion: "))
 
@@ -76,6 +77,8 @@ def main():
 			print("El numero", base10, "en complemento A1 es:", convierteATexto(binario))
 		elif opcion == 2:
 			base10 = int(input("Ingresa el numero entero a convertir: "))
+			binario = complementoA1(base10)
+			
 			pass
 		elif opcion == 3:
 			pass
@@ -83,7 +86,7 @@ def main():
 			pass
 		elif opcion == 0:
 			os.system("CLS")
-			print(""" ____________________________
+			print("""\t____________________________
 	< Developed by Ptolomeo Team >
 	#-Banda Martínez César Eduardo
 	#-Barriga Martínez Diego Alberto
