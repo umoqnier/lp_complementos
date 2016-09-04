@@ -127,12 +127,12 @@ def main():
 		elif opcion == 3:
 			binario = input("Ingresa el binario a convertir: ")
 			if(len(binario) <= 8):
-				binario = agregaCeros(binario, 8)
+				binario = agregaCeros(list(binario), 8)
 				complDeci = haciaBase10(binario)
 				base10 = a1HaciaDecimal(complDeci, len(binario))
 				imprimeResDecimal(base10, binario, "A1")
-			elif(len(binario) > 16):
-				binario = agregaCeros(binario, 16)
+			elif(len(binario) > 8 and len(binario) <= 16):
+				binario = agregaCeros(list(binario), 16)
 				complDeci = haciaBase10(binario)
 				base10 = a1HaciaDecimal(complDeci, len(binario))
 				imprimeResDecimal(base10, binario, "A1")
@@ -141,12 +141,12 @@ def main():
 		elif opcion == 4:	
 			binario = input("Ingresa el binario a convertir: ")
 			if(len(binario) <= 8):
-				binario = agregaCeros(binario, 8)
+				binario = agregaCeros(list(binario), 8)
 				complDeci = haciaBase10(binario)
 				base10 = a2HaciaDecimal(complDeci, len(binario))
 				imprimeResDecimal(base10, binario, "A2")
-			elif(len(binario) > 16):
-				binario = agregaCeros(binario, 16)
+			elif(len(binario) > 8 and len(binario) <= 16):
+				binario = agregaCeros(list(binario), 16)
 				complDeci = haciaBase10(binario)
 				base10 = a2HaciaDecimal(complDeci, len(binario))
 				imprimeResDecimal(base10, binario, "A2")
