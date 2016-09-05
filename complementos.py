@@ -9,8 +9,6 @@
 
 import os
 
-centinela = 1
-
 def haciaBinario(numero):
 	"""Funcion que convierte de decimal a binario"""
 	binario = []
@@ -45,7 +43,7 @@ def complementoA2(base10):
 def haciaBase10(binario):
 	"""Convierte un numero binario a base 10"""
 	decimal = 0
-	listaBinaria = list(binario)
+	listaBinaria = list(binario)	
 	listaBinaria.reverse() #Para aprovechar los indices de la lista
 	for i in range(len(listaBinaria)):
 		if(listaBinaria[i] != "0"):
@@ -59,13 +57,6 @@ def a1HaciaDecimal(numero, bits):
 def a2HaciaDecimal(numero, bits):
 	return  2 ** bits-numero
 
-def compuertaNot(numeroB):#Aun no tiene utilidad, pero la tendrá
-	"""Niega de los bits"""
-	if(numeroB == 1):
-		return 0
-	elif(numeroB == 0):
-		return 1
-
 def checaBits(base10):
 	if(base10 <= 255): #Condicionales necesarios para representar el numero con 8 o 16 bits
 		return 8
@@ -77,7 +68,7 @@ def checaBits(base10):
 def agregaCeros(binario, bits):
 	"""Agrega 0's al arreglo para garantizar 8 o 16 bits"""
 	for i in range(bits-len(binario)):
-		binario.insert(i, 0)
+		binario.insert(i, str(0))
 
 	return binario
 
@@ -99,7 +90,7 @@ def imprimeResDecimal(base10, binario, op):
 
 def main():
 	"""Funcion principal, inicia flujo del programa"""
-	while centinela != 0:
+	while True:
 		print("\t\t*********CONVERSOR DECIMAL-->C1,C2 Y C1,C2->DECIMAL*********")
 		print("""
 				1-Decimal --> C1
