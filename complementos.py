@@ -117,6 +117,7 @@ def main():
 				imprimeResBinario(base10, binario, "A1")
 			else:
 				print("**ERROR: no se puede operar con numeros mayores a 65535. Intenta un numero menor.")
+
 		elif opcion == 2:
 			base10 = int(input("Ingresa el numero entero a convertir: "))
 			if( base10 <= 65535):
@@ -124,9 +125,10 @@ def main():
 				imprimeResBinario(base10, binario, "A2")
 			else:
 				print("**ERROR: no se puede operar con numeros mayores a 65535. Intenta un numero menor.")
+
 		elif opcion == 3:
 			binario = input("Ingresa el binario a convertir: ")
-			if(len(binario) <= 8):
+			if(len(binario) <= 8|7|6|5|4|3|2|1):
 				binario = agregaCeros(list(binario), 8)
 				complDeci = haciaBase10(binario)
 				base10 = a1HaciaDecimal(complDeci, len(binario))
@@ -138,9 +140,10 @@ def main():
 				imprimeResDecimal(base10, binario, "A1")
 			else:
 				print("**ERROR: Solo se aceptan binarios de 1 a 16 bits")
+
 		elif opcion == 4:	
 			binario = input("Ingresa el binario a convertir: ")
-			if(len(binario) <= 8):
+			if(len(binario) <= 8|7|6|5|4|3|2|1):
 				binario = agregaCeros(list(binario), 8)
 				complDeci = haciaBase10(binario)
 				base10 = a2HaciaDecimal(complDeci, len(binario))
