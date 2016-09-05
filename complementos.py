@@ -31,6 +31,7 @@ def complementoA1(base10):
 	return binario
 
 def complementoA2(base10):
+	"""Funcion que aplica el complemento A2 a un numero Base10"""
 	binario = []
 	n = checaBits(base10)
 	complementoD = 2 ** n - base10 #Formula para obtener complemento A2 de numero decimal
@@ -52,12 +53,16 @@ def haciaBase10(binario):
 	return decimal
 
 def a1HaciaDecimal(numero, bits):
+	"""Funcion que convierte un decimal complemento A1 a Decimal natural"""
 	return  2 ** bits-numero-1
 
 def a2HaciaDecimal(numero, bits):
+	"""Funcion que convierte un decimal complemento A1 a Decimal natural"""
 	return  2 ** bits-numero
 
 def checaBits(base10):
+	"""Funcion que retorna numero de bits de 8 o 16 bits"""
+
 	if(base10 <= 255): #Condicionales necesarios para representar el numero con 8 o 16 bits
 		return 8
 	elif(base10 > 255 and base10 <= 65535): #Solo representa el complemento maximo de 16 bits
@@ -79,11 +84,13 @@ def convierteATexto(lista):
 	return cadena
 
 def imprimeResBinario(base10, binario, op):
+	"""Funcion para imprimir resultados de conversion a complementos"""
 	print("\n===========================================================================")
-	print("\t\tEl numero", base10, "en complemento", op,"es:", convierteATexto(binario))
+	print("\t\tEl numero", base10, "en", op,"es:", convierteATexto(binario))
 	print("===========================================================================\n")
 
 def imprimeResDecimal(base10, binario, op):
+	"""Funcion para imprimir resultados de conversion a decimal"""
 	print("\n===========================================================================")
 	print("\t\tEl binario ", convierteATexto(binario)+"["+op+"] es en decimal:", base10)
 	print("===========================================================================\n")
@@ -98,23 +105,32 @@ def main():
 				3-C1 --> Decimal
 				4-C2 --> Decimal
 				0-Salir
+
+				NOTA: El complemento se aplica solo a números negativos, en caso de
+				ser positivo solo se hará la conversión a binario natural.
 			""")
 		opcion = int(input("Selecciona una opcion: "))
 
 		if opcion == 1:
 			base10 = int(input("Ingresa el numero entero a convertir: "))
-			if( base10 <= 65535):
-				binario = complementoA1(base10)
-				imprimeResBinario(base10, binario, "A1")
+			if( base10 >= -65535 and base10 < 0):
+				binario = complementoA1(abs(base10))
+				imprimeResBinario(base10, binario, "complemento A1")
+			elif(base10 <= 65535 and base10 > 0):
+				binario = haciaBinario(base10)
+				imprimeResBinario(base10, binario, "binario natural")
 			else:
-				print("**ERROR: no se puede operar con numeros mayores a 65535. Intenta un numero menor.")
+				print("**ERROR: no se puede operar con numeros menores a -65535 o mayores a 65535. Intenta un numero menor.")
 		elif opcion == 2:
 			base10 = int(input("Ingresa el numero entero a convertir: "))
-			if( base10 <= 65535):
-				binario = complementoA2(base10)	
-				imprimeResBinario(base10, binario, "A2")
+			if( base10 >= -65535 and base10 < 0):
+				binario = complementoA2(abs(base10))	
+				imprimeResBinario(base10, binario, "complemento A2")
+			elif(base10 <= 65535 and base10 > 0):
+				binario = haciaBinario(base10)
+				imprimeResBinario(base10, binario, "Binario natural")
 			else:
-				print("**ERROR: no se puede operar con numeros mayores a 65535. Intenta un numero menor.")
+				print("**ERROR: no se puede operar con numeros menores a -65535 o mayores a 65535. Intenta un numero menor.")
 		elif opcion == 3:
 			binario = input("Ingresa el binario a convertir: ")
 			if(len(binario) <= 8):
