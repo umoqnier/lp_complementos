@@ -24,19 +24,40 @@ def haciaBinario(numero):
 def complementoA1(base10):
 	"""Funcion que aplica el complemento A1 a un numero Base10"""
 	binario = [] #Lista que almacena el numero binario
-	if(base10 <= 255): #Condicionales necesarios para representar el numero con 8 o 16 bits
-		n = 8
-	elif(base10 > 255 and base10 <= 65535): #Solo representa el complemento maximo de 16 bits
-		n = 16
-
+	n = checaBits(base10)
 	complementoD = 2 ** n - base10 - 1 #Formula para convertir a complemento A1 un decimal
-	print("Complemento de ", base10, "es", complementoD, "base 10")
-	binario = haciaBinario(complementoD)
-
+	binario = haciaBinario(complementoD) #Convierte a binario el decimal en complemento A1
 	if(len(binario) != n):#Si el binario es diferente a 8 o 16 bits se agregan 0's a la derecha
 		binario = agregaCeros(binario, n)
 
 	return binario
+
+def complementoA2(base10):
+	binario = []
+	n = checaBits(base10)
+	complementoD = 2 ** n - base10 #Formula para obtener complemento A2 de numero decimal
+	binario = haciaBinario(complementoD) #Convierte a binario el decimal en complemento A2
+	if(len(binario) != n):#Si el binario es diferente a 8 o 16 bits se agregan 0's a la derecha
+		binario = agregaCeros(binario, n)
+
+	return binario
+
+def haciaBase10(binario):
+	"""Convierte un numero binario a base 10"""
+	decimal = 0
+	listaBinaria = list(binario)
+	listaBinaria.reverse() #Para aprovechar los indices de la lista
+	for i in range(len(listaBinaria)):
+		if(listaBinaria[i] != "0"):
+			decimal += 2 ** int(i)
+
+	return decimal
+
+def a1HaciaDecimal(numero, bits):
+	return  2 ** bits-numero-1
+
+def a2HaciaDecimal(numero, bits):
+	return  2 ** bits-numero
 
 def compuertaNot(numeroB):#Aun no tiene utilidad, pero la tendrá
 	"""Niega de los bits"""
@@ -44,6 +65,14 @@ def compuertaNot(numeroB):#Aun no tiene utilidad, pero la tendrá
 		return 0
 	elif(numeroB == 0):
 		return 1
+
+def checaBits(base10):
+	if(base10 <= 255): #Condicionales necesarios para representar el numero con 8 o 16 bits
+		return 8
+	elif(base10 > 255 and base10 <= 65535): #Solo representa el complemento maximo de 16 bits
+		return 16
+	else:
+		return 0
 
 def agregaCeros(binario, bits):
 	"""Agrega 0's al arreglo para garantizar 8 o 16 bits"""
@@ -57,6 +86,16 @@ def convierteATexto(lista):
 	cadena = "".join(str(i) for i in lista)
 
 	return cadena
+
+def imprimeResBinario(base10, binario, op):
+	print("\n===========================================================================")
+	print("\t\tEl numero", base10, "en complemento", op,"es:", convierteATexto(binario))
+	print("===========================================================================\n")
+
+def imprimeResDecimal(base10, binario, op):
+	print("\n===========================================================================")
+	print("\t\tEl binario ", convierteATexto(binario)+"["+op+"] es en decimal:", base10)
+	print("===========================================================================\n")
 
 def main():
 	"""Funcion principal, inicia flujo del programa"""
@@ -73,17 +112,46 @@ def main():
 
 		if opcion == 1:
 			base10 = int(input("Ingresa el numero entero a convertir: "))
-			binario = complementoA1(base10)
-			print("El numero", base10, "en complemento A1 es:", convierteATexto(binario))
+			if( base10 <= 65535):
+				binario = complementoA1(base10)
+				imprimeResBinario(base10, binario, "A1")
+			else:
+				print("**ERROR: no se puede operar con numeros mayores a 65535. Intenta un numero menor.")
 		elif opcion == 2:
 			base10 = int(input("Ingresa el numero entero a convertir: "))
-			binario = complementoA1(base10)
-			
-			pass
+			if( base10 <= 65535):
+				binario = complementoA2(base10)	
+				imprimeResBinario(base10, binario, "A2")
+			else:
+				print("**ERROR: no se puede operar con numeros mayores a 65535. Intenta un numero menor.")
 		elif opcion == 3:
-			pass
+			binario = input("Ingresa el binario a convertir: ")
+			if(len(binario) <= 8):
+				binario = agregaCeros(list(binario), 8)
+				complDeci = haciaBase10(binario)
+				base10 = a1HaciaDecimal(complDeci, len(binario))
+				imprimeResDecimal(base10, binario, "A1")
+			elif(len(binario) > 8 and len(binario) <= 16):
+				binario = agregaCeros(list(binario), 16)
+				complDeci = haciaBase10(binario)
+				base10 = a1HaciaDecimal(complDeci, len(binario))
+				imprimeResDecimal(base10, binario, "A1")
+			else:
+				print("**ERROR: Solo se aceptan binarios de 1 a 16 bits")
 		elif opcion == 4:	
-			pass
+			binario = input("Ingresa el binario a convertir: ")
+			if(len(binario) <= 8):
+				binario = agregaCeros(list(binario), 8)
+				complDeci = haciaBase10(binario)
+				base10 = a2HaciaDecimal(complDeci, len(binario))
+				imprimeResDecimal(base10, binario, "A2")
+			elif(len(binario) > 8 and len(binario) <= 16):
+				binario = agregaCeros(list(binario), 16)
+				complDeci = haciaBase10(binario)
+				base10 = a2HaciaDecimal(complDeci, len(binario))
+				imprimeResDecimal(base10, binario, "A2")
+			else:
+				print("**ERROR: Solo se aceptan binarios de 1 a 16 bits")
 		elif opcion == 0:
 			os.system("CLS")
 			print("""\t____________________________
