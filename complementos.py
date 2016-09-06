@@ -133,7 +133,7 @@ def main():
 				print("**ERROR: no se puede operar con numeros menores a -65535 o mayores a 65535. Intenta un numero menor.")
 		elif opcion == 3:
 			binario = input("Ingresa el binario a convertir: ")
-			if(len(binario) <= 8|7|6|5|4|3|2|1):
+			if(len(binario) <= 8):
 				binario = agregaCeros(list(binario), 8)
 				complDeci = haciaBase10(binario)
 				base10 = a1HaciaDecimal(complDeci, len(binario))
@@ -147,7 +147,7 @@ def main():
 				print("**ERROR: Solo se aceptan binarios de 1 a 16 bits")
 		elif opcion == 4:	
 			binario = input("Ingresa el binario a convertir: ")
-			if(len(binario) <= 8|7|6|5|4|3|2|1):
+			if(len(binario) <= 8):
 				binario = agregaCeros(list(binario), 8)
 				complDeci = haciaBase10(binario)
 				base10 = a2HaciaDecimal(complDeci, len(binario))
